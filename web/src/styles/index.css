@@ -148,6 +148,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   transition: background .15s;
 }
 .clear-btn:hover { background: #fee2e2; }
+.unclear-btn {
+  font-size: .78rem;
+  color: #2563eb;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  transition: background .15s;
+}
+.unclear-btn:hover { background: #dbeafe; }
 
 /* ── Progress Bar ────────────────────────────────── */
 .progress-track {

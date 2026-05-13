@@ -16,6 +16,7 @@ export default function App() {
   const [weekStart, setWeekStart] = useState(() => getMonday(selectedDate))
   const [showDefer, setShowDefer] = useState(false)
   const [toast, setToast] = useState(null)
+  const [clearedTasks, setClearedTasks] = useState(null)
 
   const store = useTaskStore()
 
@@ -127,11 +128,24 @@ export default function App() {
           <h2>{formatLong(selectedDate)}</h2>
           <p className="day-sub">{completed} of {total} tasks completed</p>
         </div>
-        {completed > 0 && (
-          <button className="clear-btn" onClick={() => store.clearCompleted(selectedDate)}>
-            Clear done
-          </button>
-        )}
+        <div style={{ display: 'flex', gap: 8 }}>
+          {completed > 0 && (
+            <button className="clear-btn" onClick={() => {
+              const cleared = store.clearCompleted(selectedDate)
+              if (cleared.length > 0) setClearedTasks({ date: selectedDate, tasks: cleared })
+            }}>
+              Clear done
+            </button>
+          )}
+          {clearedTasks && dateKey(clearedTasks.date) === dateKey(selectedDate) && (
+            <button className="unclear-btn" onClick={() => {
+              store.restoreTasks(clearedTasks.date, clearedTasks.tasks)
+              setClearedTasks(null)
+            }}>
+              Unclear
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Progress bar */}
